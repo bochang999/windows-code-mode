@@ -1,7 +1,10 @@
 # Environment variables and secrets
 .env
 .env.local
-.env.*
+.env.*.local
+
+# Allow .env.example template
+!.env.example
 
 # API keys and tokens
 *.key
