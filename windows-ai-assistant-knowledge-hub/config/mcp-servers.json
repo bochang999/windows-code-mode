@@ -1,0 +1,222 @@
+{
+  "mcpServers": {
+    "sequential-thinking": {
+      "command": "npx",
+      "args": ["-y", "mcp-server-sequential-thinking"],
+      "description": "Multi-step problem solving MCP server",
+      "features": [
+        "thought",
+        "thoughtNumber",
+        "totalThoughts",
+        "nextThoughtNeeded",
+        "isRevision",
+        "revisesThought",
+        "branchFromThought",
+        "branchId",
+        "needsMoreThoughts"
+      ],
+      "useCases": [
+        "Strategic planning",
+        "Complex problem decomposition",
+        "Multi-phase workflow design"
+      ],
+      "documentation": "https://github.com/sequentialthinking/mcp-server"
+    },
+    "n8n": {
+      "command": "npx",
+      "args": ["-y", "@n8n-mcp/server"],
+      "description": "n8n workflow automation MCP server with 536 nodes",
+      "features": [
+        "getNodeInfo",
+        "listNodes",
+        "searchNodes"
+      ],
+      "nodeCategories": [
+        "AI",
+        "Communication",
+        "Data Transformation",
+        "Development",
+        "File Management",
+        "Finance",
+        "Marketing",
+        "Productivity",
+        "Sales",
+        "Security",
+        "Utilities"
+      ],
+      "totalNodes": 536,
+      "propertyStats": {
+        "covered": 99,
+        "uncovered": 1,
+        "coveragePercentage": "99%"
+      },
+      "useCases": [
+        "Workflow design",
+        "Automation pattern creation",
+        "Webhook integration",
+        "Android build automation"
+      ],
+      "documentation": "https://github.com/czlonkowski/n8n-mcp"
+    },
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@notionhq/client"],
+      "description": "Notion API MCP server with Japanese support",
+      "features": [
+        "Page creation",
+        "Database queries",
+        "Block management",
+        "User management"
+      ],
+      "useCases": [
+        "Documentation management",
+        "Database synchronization",
+        "Linear integration",
+        "Knowledge base updates"
+      ],
+      "apiKeyRequired": true,
+      "apiKeyLocation": "$env:USERPROFILE\\.notion-api-key",
+      "documentation": "https://developers.notion.com/"
+    },
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "context7-mcp-server"],
+      "description": "Technical documentation retrieval MCP server",
+      "features": [
+        "Library documentation search",
+        "API specification retrieval",
+        "Code examples"
+      ],
+      "useCases": [
+        "Technical research",
+        "API specification lookup",
+        "Library documentation access"
+      ],
+      "apiKeyRequired": true,
+      "apiKeyLocation": "$env:USERPROFILE\\.context7-api-key",
+      "documentation": "https://context7.com"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp"],
+      "description": "Chrome DevTools Protocol MCP server for WebView debugging",
+      "features": [
+        "DOM inspection",
+        "Console access",
+        "Network monitoring",
+        "Performance profiling"
+      ],
+      "useCases": [
+        "WebView debugging",
+        "PWA validation",
+        "Performance analysis",
+        "Android WebView testing"
+      ],
+      "documentation": "https://chromedevtools.github.io/devtools-protocol/"
+    }
+  },
+  "claudeDesktopConfig": {
+    "configPath": "%APPDATA%\\Claude\\claude_desktop_config.json",
+    "requiredStructure": {
+      "mcpServers": {
+        "sequential-thinking": {
+          "command": "npx",
+          "args": ["-y", "mcp-server-sequential-thinking"]
+        },
+        "n8n": {
+          "command": "npx",
+          "args": ["-y", "@n8n-mcp/server"]
+        },
+        "notion": {
+          "command": "npx",
+          "args": ["-y", "@notionhq/client"]
+        },
+        "context7": {
+          "command": "npx",
+          "args": ["-y", "context7-mcp-server"]
+        }
+      }
+    }
+  },
+  "installation": {
+    "prerequisites": [
+      "Node.js 18+",
+      "npm or npx",
+      "Claude Desktop"
+    ],
+    "commands": [
+      "npm install -g mcp-server-sequential-thinking",
+      "npm install -g @n8n-mcp/server",
+      "npm install -g @notionhq/client",
+      "npm install -g context7-mcp-server",
+      "npm install -g chrome-devtools-mcp"
+    ],
+    "verification": {
+      "script": "scripts/validate-mcp-servers.ps1",
+      "expectedOutput": [
+        "✅ Sequential Thinking MCP: Connected",
+        "✅ n8n MCP: Connected (536 nodes available)",
+        "✅ Notion API: Connected",
+        "✅ Context7 API: Connected",
+        "✅ Chrome DevTools MCP: Connected"
+      ]
+    }
+  },
+  "integrationPatterns": {
+    "pattern1": {
+      "name": "Sequential Thinking + Implementation",
+      "steps": [
+        "Use Sequential Thinking MCP for strategy planning",
+        "Implement solution (PowerShell/JavaScript)",
+        "Test locally",
+        "Update Linear Issue"
+      ]
+    },
+    "pattern2": {
+      "name": "n8n Workflow Design",
+      "steps": [
+        "Search nodes with n8n MCP",
+        "Design workflow structure",
+        "Implement in n8n UI",
+        "Test webhook integration"
+      ]
+    },
+    "pattern3": {
+      "name": "Notion → Linear Sync",
+      "steps": [
+        "Fetch Notion pages with Notion MCP",
+        "Transform data (PowerShell)",
+        "Sync to Linear via GraphQL API",
+        "Handle errors and log"
+      ]
+    }
+  },
+  "troubleshooting": {
+    "mcpServerNotFound": {
+      "error": "MCP Server not found in Claude Desktop",
+      "solution": [
+        "Verify Node.js installation: node --version",
+        "Install MCP server globally: npm install -g <mcp-server>",
+        "Check Claude Desktop config: %APPDATA%\\Claude\\claude_desktop_config.json",
+        "Restart Claude Desktop"
+      ]
+    },
+    "apiKeyMissing": {
+      "error": "API key not found",
+      "solution": [
+        "Create API key file: echo \"your_key\" > $env:USERPROFILE\\.notion-api-key",
+        "Verify file exists: cat $env:USERPROFILE\\.notion-api-key",
+        "Check file permissions"
+      ]
+    },
+    "connectionFailed": {
+      "error": "MCP Server connection failed",
+      "solution": [
+        "Check firewall settings",
+        "Verify network connectivity",
+        "Test with npx command directly",
+        "Review Claude Desktop logs"
+      ]
+    }
+  }
+}

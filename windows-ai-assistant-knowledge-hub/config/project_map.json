@@ -1,0 +1,189 @@
+{
+  "projects": {
+    "windows-code-mode": {
+      "name": "Windows Code Mode",
+      "description": "Windows環境での開発サンドボックス・MCP統合プロジェクト",
+      "path": "C:\\Users\\kirok\\dev\\windows-code-mode",
+      "repository": "https://github.com/bochang999/windows-code-mode",
+      "type": "windows-development",
+      "technologies": [
+        "PowerShell",
+        "Node.js",
+        "MCP Servers",
+        "Linear API",
+        "GitHub API"
+      ],
+      "mcpServers": [
+        "sequential-thinking",
+        "n8n",
+        "notion",
+        "context7",
+        "github",
+        "chrome-devtools"
+      ],
+      "linearTeam": "bochang's lab",
+      "activeIssues": [
+        "BOC-116"
+      ]
+    },
+    "windows-ai-assistant-knowledge-hub": {
+      "name": "Windows AI Assistant Knowledge Hub",
+      "description": "Windows環境最適化AI協業ナレッジベース",
+      "path": "C:\\Users\\kirok\\dev\\windows-ai-assistant-knowledge-hub",
+      "repository": "https://github.com/bochang999/windows-ai-assistant-knowledge-hub",
+      "type": "knowledge-base",
+      "technologies": [
+        "PowerShell",
+        "Markdown",
+        "Linear GraphQL API"
+      ],
+      "workflows": [
+        "linear_issue_management",
+        "windows-mcp-integration",
+        "powershell-automation",
+        "android-build-automation",
+        "api-key-security"
+      ],
+      "linearTeam": "bochang's lab"
+    },
+    "windows-android-sandbox-export": {
+      "name": "Windows Android Sandbox Export",
+      "description": "Termux-based開発サンドボックス（Windows移行準備）",
+      "path": "/data/data/com.termux/files/home/windows-android-sandbox-export",
+      "repository": "https://github.com/bochang999/windows-code-mode",
+      "type": "sandbox",
+      "technologies": [
+        "Node.js",
+        "JavaScript",
+        "Bash",
+        "MCP Servers"
+      ],
+      "mcpServers": [
+        "sequential-thinking",
+        "n8n",
+        "notion",
+        "context7",
+        "linear",
+        "github"
+      ],
+      "status": "migration-source"
+    }
+  },
+  "mcpServers": {
+    "sequential-thinking": {
+      "name": "Sequential Thinking MCP",
+      "description": "多段階思考・問題解決MCPサーバー",
+      "command": "npx -y mcp-server-sequential-thinking",
+      "useCases": [
+        "戦略立案",
+        "段階的問題解決",
+        "複雑タスク分解"
+      ]
+    },
+    "n8n": {
+      "name": "n8n MCP",
+      "description": "536ノードWorkflow自動化MCPサーバー",
+      "command": "npx -y @n8n-mcp/server",
+      "nodes": 536,
+      "useCases": [
+        "Workflow設計",
+        "自動化パターン構築",
+        "Webhook連携"
+      ]
+    },
+    "notion": {
+      "name": "Notion API MCP",
+      "description": "Notion統合MCPサーバー（日本語対応）",
+      "command": "npx -y @notionhq/client",
+      "useCases": [
+        "ドキュメント管理",
+        "データベース同期",
+        "Linear連携"
+      ]
+    },
+    "context7": {
+      "name": "Context7 API MCP",
+      "description": "技術ドキュメント取得MCPサーバー",
+      "command": "npx -y context7-mcp-server",
+      "useCases": [
+        "技術調査",
+        "API仕様確認",
+        "ライブラリドキュメント"
+      ]
+    },
+    "github": {
+      "name": "GitHub API MCP",
+      "description": "GitHubリポジトリ管理MCPサーバー",
+      "useCases": [
+        "Issue管理",
+        "PR作成",
+        "リポジトリ操作"
+      ]
+    },
+    "chrome-devtools": {
+      "name": "Chrome DevTools MCP",
+      "description": "WebView/PWAデバッグMCPサーバー",
+      "command": "npx -y chrome-devtools-mcp",
+      "useCases": [
+        "WebViewデバッグ",
+        "PWA検証",
+        "パフォーマンス分析"
+      ]
+    }
+  },
+  "linearIntegration": {
+    "apiEndpoint": "https://api.linear.app/graphql",
+    "teamName": "bochang's lab",
+    "teamIdFile": "~/.linear-team-id",
+    "apiKeyFile": "~/.linear-api-key",
+    "stateIds": {
+      "inProgress": "1cebb56e-524e-4de0-b676-0f574df9012a",
+      "inReview": "33feb1c9-3276-4e13-863a-0b93db032a0f"
+    },
+    "automationScripts": {
+      "updateStatus": "scripts/sync-linear-status.ps1",
+      "addComment": "scripts/add-linear-comment.ps1",
+      "getIssue": "scripts/get-linear-issue.ps1"
+    }
+  },
+  "securityConfiguration": {
+    "apiKeyStorage": {
+      "linear": "$env:USERPROFILE\\.linear-api-key",
+      "github": "$env:USERPROFILE\\.github-token",
+      "linearTeam": "$env:USERPROFILE\\.linear-team-id"
+    },
+    "gitignorePatterns": [
+      ".env",
+      ".env.local",
+      ".env.*.local",
+      "*.key",
+      "*-api-key",
+      "*-token",
+      "*secret*"
+    ],
+    "preCommitHook": ".git/hooks/pre-commit",
+    "scanPatterns": [
+      "lin_api_",
+      "ghp_",
+      "secret_",
+      "ntn_",
+      "ctx7_"
+    ]
+  },
+  "windowsEnvironment": {
+    "powerShellVersion": "5.1+",
+    "nodeVersion": "18+",
+    "requiredTools": [
+      "PowerShell",
+      "Node.js",
+      "Git for Windows",
+      "Claude Desktop",
+      "Android Studio (optional)"
+    ],
+    "pathConventions": {
+      "userProfile": "$env:USERPROFILE",
+      "appData": "$env:APPDATA",
+      "temp": "$env:TEMP"
+    }
+  }
+}

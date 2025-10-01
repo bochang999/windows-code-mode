@@ -1,0 +1,168 @@
+{
+  "apiKeys": {
+    "linear": {
+      "description": "Linear API key for issue management",
+      "format": "lin_api_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "obtainUrl": "https://linear.app/settings/api",
+      "permissions": [
+        "read:issues",
+        "write:issues",
+        "read:comments",
+        "write:comments"
+      ],
+      "storageLocation": "$env:USERPROFILE\\.linear-api-key",
+      "usageExample": "Get-Content \"$env:USERPROFILE\\.linear-api-key\" -Raw"
+    },
+    "github": {
+      "description": "GitHub Personal Access Token",
+      "format": "ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "obtainUrl": "https://github.com/settings/tokens",
+      "permissions": [
+        "repo",
+        "read:user",
+        "read:org"
+      ],
+      "storageLocation": "$env:USERPROFILE\\.github-token",
+      "usageExample": "Get-Content \"$env:USERPROFILE\\.github-token\" -Raw"
+    },
+    "notion": {
+      "description": "Notion API key (Internal Integration)",
+      "format": "secret_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "obtainUrl": "https://www.notion.so/my-integrations",
+      "permissions": [
+        "Read content",
+        "Update content",
+        "Insert content"
+      ],
+      "storageLocation": "$env:USERPROFILE\\.notion-api-key",
+      "usageExample": "Get-Content \"$env:USERPROFILE\\.notion-api-key\" -Raw"
+    },
+    "context7": {
+      "description": "Context7 API key for technical documentation",
+      "format": "ctx7_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "obtainUrl": "https://context7.com/dashboard",
+      "permissions": [
+        "read:documentation"
+      ],
+      "storageLocation": "$env:USERPROFILE\\.context7-api-key",
+      "usageExample": "Get-Content \"$env:USERPROFILE\\.context7-api-key\" -Raw"
+    }
+  },
+  "teamIds": {
+    "linear": {
+      "description": "Linear team ID (bochang's lab)",
+      "format": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "obtainMethod": "Query via Linear API: query { teams { id name } }",
+      "storageLocation": "$env:USERPROFILE\\.linear-team-id",
+      "usageExample": "Get-Content \"$env:USERPROFILE\\.linear-team-id\" -Raw"
+    }
+  },
+  "stateIds": {
+    "linear": {
+      "description": "Linear workflow state IDs",
+      "values": {
+        "inProgress": {
+          "id": "1cebb56e-524e-4de0-b676-0f574df9012a",
+          "name": "In Progress"
+        },
+        "inReview": {
+          "id": "33feb1c9-3276-4e13-863a-0b93db032a0f",
+          "name": "In Review"
+        }
+      },
+      "obtainMethod": "Query via Linear API: query { workflowStates { id name } }",
+      "usageExample": "Use IDs directly in GraphQL mutations"
+    }
+  },
+  "securityGuidelines": {
+    "storage": [
+      "NEVER store API keys in repository files",
+      "Use separate files in user home directory",
+      "Recommended: $env:USERPROFILE\\.{service}-api-key",
+      "Alternative: Windows Credential Manager (advanced)"
+    ],
+    "gitignore": [
+      ".env",
+      ".env.local",
+      ".env.*.local",
+      "*.key",
+      "*-api-key",
+      "*-token",
+      "*secret*"
+    ],
+    "preCommitHook": {
+      "description": "Automatic API key leak detection",
+      "location": ".git/hooks/pre-commit",
+      "scanPatterns": [
+        "lin_api_",
+        "ghp_",
+        "secret_",
+        "ntn_",
+        "ctx7_"
+      ]
+    },
+    "emergencyResponse": [
+      "1. Revoke compromised key immediately (service settings)",
+      "2. Remove from Git history: git filter-branch",
+      "3. Generate new key",
+      "4. Update local storage",
+      "5. Force push: git push --force origin main",
+      "6. Document incident in Linear issue"
+    ]
+  },
+  "setupInstructions": {
+    "step1": {
+      "title": "Obtain API keys",
+      "actions": [
+        "Visit each service's API settings page",
+        "Generate Personal API keys",
+        "Copy keys to temporary secure location"
+      ]
+    },
+    "step2": {
+      "title": "Create storage files",
+      "commands": [
+        "echo \"lin_api_your_key_here\" > $env:USERPROFILE\\.linear-api-key",
+        "echo \"ghp_your_token_here\" > $env:USERPROFILE\\.github-token",
+        "echo \"secret_your_key_here\" > $env:USERPROFILE\\.notion-api-key",
+        "echo \"ctx7_your_key_here\" > $env:USERPROFILE\\.context7-api-key",
+        "echo \"your_team_id_here\" > $env:USERPROFILE\\.linear-team-id"
+      ]
+    },
+    "step3": {
+      "title": "Verify configuration",
+      "commands": [
+        "cat $env:USERPROFILE\\.linear-api-key",
+        "cat $env:USERPROFILE\\.github-token",
+        "cat $env:USERPROFILE\\.linear-team-id"
+      ]
+    },
+    "step4": {
+      "title": "Test API connections",
+      "script": "scripts/validate-keys.ps1"
+    }
+  },
+  "usagePatterns": {
+    "powershell": {
+      "description": "PowerShell script API key loading",
+      "example": "# Load Linear API key\n$linearKey = Get-Content \"$env:USERPROFILE\\.linear-api-key\" -Raw\n\n# Use in GraphQL request\n$headers = @{\n    \"Authorization\" = $linearKey\n    \"Content-Type\" = \"application/json\"\n}\n\nInvoke-RestMethod -Uri \"https://api.linear.app/graphql\" -Headers $headers -Method Post"
+    },
+    "javascript": {
+      "description": "Node.js API key loading",
+      "example": "// Load Linear API key\nconst fs = require('fs');\nconst os = require('os');\nconst path = require('path');\n\nconst keyPath = path.join(os.homedir(), '.linear-api-key');\nconst linearKey = fs.readFileSync(keyPath, 'utf8').trim();\n\n// Use in API request\nconst headers = {\n    'Authorization': linearKey,\n    'Content-Type': 'application/json'\n};"
+    }
+  },
+  "notes": {
+    "important": [
+      "This is a TEMPLATE file - safe to commit to repository",
+      "Actual API keys MUST be stored in separate files",
+      "Never use environment variables in .env for production",
+      "Use separate files for better security isolation"
+    ],
+    "references": [
+      "SECURITY.md: Complete security guide",
+      "workflows/api-key-security/: Detailed management workflow",
+      "SETUP.md: Environment setup instructions"
+    ]
+  }
+}
