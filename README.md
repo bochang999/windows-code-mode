@@ -46,15 +46,19 @@ git add . && git commit -m "test" # Should scan for API keys
 ## 📁 Project Structure
 
 ```
-.env.example              # API key template (safe to commit)
-.env                      # Your actual keys (NEVER commit)
-.gitignore                # Blocks secrets from being committed
-.git/hooks/pre-commit     # Auto-scans for leaked keys
-sandbox.js                # Main sandbox runtime
-enhanced-linear-api.js    # Linear API integration
-setup-keys.sh             # Key configuration wizard
-validate-keys.sh          # Key validation script
-SECURITY.md               # Complete security guide
+.env.example                      # API key template (safe to commit)
+.env                              # Your actual keys (NEVER commit)
+.gitignore                        # Blocks secrets from being committed
+.git/hooks/pre-commit             # Auto-scans for leaked keys
+sandbox.js                        # Main sandbox runtime with MCP integrations
+enhanced-linear-api.js            # Linear API integration
+local-sequential-thinking.js      # Sequential Thinking MCP integration
+setup-keys.sh                     # Key configuration wizard
+validate-keys.sh                  # Key validation script
+test-n8n-integration.js           # n8n MCP integration test
+test-workflow-design.js           # Advanced workflow design example
+SECURITY.md                       # Complete security guide
+windows-mcp-integration-guide.md  # Windows MCP setup & usage
 ```
 
 ---
@@ -85,10 +89,33 @@ Store keys in `.env` or separate files:
 
 ---
 
+## 🤖 MCP Integrations (Windows)
+
+### Supported MCP Servers
+- ✅ **Sequential Thinking**: Multi-step problem solving
+- ✅ **n8n MCP**: 536 workflow automation nodes
+- ✅ **Notion API**: Japanese input support
+- ✅ **Context7 API**: Technical documentation
+- ✅ **GitHub API**: Repository management
+- ✅ **Linear API**: Enhanced issue tracking
+- ✅ **Chrome DevTools**: WebView debugging
+
+### Quick Test
+```bash
+# Test n8n MCP integration
+node sandbox.js test-n8n-integration.js
+
+# Test advanced workflow design
+node sandbox.js test-workflow-design.js
+```
+
+---
+
 ## 📚 Documentation
 
 - **[SECURITY.md](SECURITY.md)**: API key management guide
-- **[windows-mcp-guide.md](windows-mcp-guide.md)**: Windows MCP setup
+- **[windows-mcp-integration-guide.md](windows-mcp-integration-guide.md)**: MCP setup & usage (NEW)
+- **[windows-mcp-guide.md](windows-mcp-guide.md)**: Windows MCP basics
 - **[notion-to-linear-guide.md](notion-to-linear-guide.md)**: Notion integration
 
 ---

@@ -232,6 +232,89 @@ const githubApi = {
         return await response.json();
     }
 };
+// n8n MCP API
+const n8nApi = {
+    getNodeInfo: async (nodeName) => {
+        console.log(`[Sandbox] Getting n8n node info: ${nodeName}`);
+        const response = await fetch('http://localhost:3000/mcp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/event-stream',
+            },
+            body: JSON.stringify({
+                jsonrpc: '2.0',
+                id: Math.random().toString(36).substring(2, 15),
+                method: 'tools/call',
+                params: {
+                    name: 'get_node_info',
+                    arguments: { nodeName }
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`n8n MCP error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.result;
+    },
+
+    listNodes: async (filters = {}) => {
+        console.log(`[Sandbox] Listing n8n nodes with filters:`, filters);
+        const response = await fetch('http://localhost:3000/mcp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/event-stream',
+            },
+            body: JSON.stringify({
+                jsonrpc: '2.0',
+                id: Math.random().toString(36).substring(2, 15),
+                method: 'tools/call',
+                params: {
+                    name: 'list_nodes',
+                    arguments: filters
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`n8n MCP error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.result;
+    },
+
+    searchNodes: async (query) => {
+        console.log(`[Sandbox] Searching n8n nodes: ${query}`);
+        const response = await fetch('http://localhost:3000/mcp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json, text/event-stream',
+            },
+            body: JSON.stringify({
+                jsonrpc: '2.0',
+                id: Math.random().toString(36).substring(2, 15),
+                method: 'tools/call',
+                params: {
+                    name: 'search_nodes',
+                    arguments: { query }
+                }
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`n8n MCP error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data.result;
+    }
+};
 // Enhanced Linear API with intelligent search
 const { EnhancedLinearApi } = require('./enhanced-linear-api.ts');
 const enhancedLinearInstance = new EnhancedLinearApi();
@@ -314,6 +397,7 @@ async function runSandbox(sourceFile) {
             sequentialThinking: sequentialThinkingApi, // Add Sequential Thinking API here
             github: githubApi, // Add GitHub API here
             linear: linearApi, // Add Linear API here
+            n8n: n8nApi, // Add n8n MCP API here
         },
         console: {
             ...console,
@@ -337,6 +421,8 @@ async function runSandbox(sourceFile) {
     console.log('[Runner Debug] githubApi:', githubApi);
     console.log('[Runner Debug] sandboxContext.mcp.linear:', sandboxContext.mcp.linear);
     console.log('[Runner Debug] linearApi:', linearApi);
+    console.log('[Runner Debug] sandboxContext.mcp.n8n:', sandboxContext.mcp.n8n);
+    console.log('[Runner Debug] n8nApi:', n8nApi);
     // 3. Execute in Sandbox
     console.log('[Runner] Executing code in sandbox...');
     try {
